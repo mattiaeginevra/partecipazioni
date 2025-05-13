@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Partecipazione Nozze Moderna</title>
+  <!-- Importa i font -->
+  <link href="https://fonts.googleapis.com/css2?family=Beach+Bum&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Gladiola';
+      src: url('./Gladiola.ttf') format('truetype');
+      font-display: swap;
+    }
+    body {
+      background-image: url('./textured-paper.png');
+      color: #5c788f;
+      font-family: 'Poppins', cursive, sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      animation: fadeIn 2s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    .nomi {
+      font-family: 'Gladiola', serif;
+      font-size: 3em;
+      font-weight: bold;
+      margin-top: 10%;
+      letter-spacing: 2px;
+      animation: slideInFromLeft 1.5s ease forwards;
+      opacity: 0;
+      color: #5c788f;
+    }
+    @keyframes slideInFromLeft {
+      to {opacity: 1; transform: translateX(0);}
+      from {opacity: 0; transform: translateX(-100%);}
+    }
+    .frase {
+      font-family: 'Poppins', cursive, sans-serif;
+      font-size: 1.3em;
+      margin: 40px 20px 20px 20px;
+      text-align: center;
+      line-height: 1.5em;
+      border-radius: 12px;
+      padding: 24px 18px;
+      color: #5c788f;
+      animation: fadeIn 3s ease forwards;
+      opacity: 0;
+    }
+    .iban-box {
+      margin-bottom: 10%;
+      margin-top: 60px;
+      padding: 18px 32px;
+      border-radius: 10px;
+      font-size: 1.1em;
+      letter-spacing: 1.5px;
+      color: #5c788f;
+      font-weight: bold;
+      text-align: center;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      animation: slideInFromRight 1.5s ease forwards;
+      opacity: 0;
+      flex-direction: column;
+    }
+    @keyframes slideInFromRight {
+      to {opacity: 1; transform: translateX(0);}
+      from {opacity: 0; transform: translateX(100%);}
+    }
+    button.copy-btn {
+      background-color: #5c788f;
+      border: none;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'Poppins', cursive, sans-serif;
+      font-size: 1em;
+      transition: background-color 0.3s ease;
+    }
+    button.copy-btn:hover {
+      background-color: #486075;
+    }
+    /* Stile per il dialog di conferma copia */
+    #copy-dialog {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #5c788f;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-family: 'Poppins', cursive, sans-serif;
+      font-size: 1em;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+      z-index: 1000;
+    }
+    #copy-dialog.show {
+      opacity: 1;
+      pointer-events: auto;
+      animation: fadeInOut 2s forwards;
+    }
+    @keyframes fadeInOut {
+      0% {opacity: 0;}
+      10% {opacity: 1;}
+      90% {opacity: 1;}
+      100% {opacity: 0;}
+    }
+  </style>
+</head>
+<body>
+  <div class="nomi">Mattia & Ginevra</div>
+  <div class="frase">
+    Celebrare insieme questo giorno<br>
+    sarà per noi il dono più bello!<br>
+    Qualora desideriate contribuire alla realizzazione dei nostri sogni<br>
+    e progetti futuri<br>
+    potete farlo qui
+  </div>
+  <div class="iban-box">
+    <span id="iban-text">IBAN: IT00A0000000000000000000000</span>
+    <button class="copy-btn" onclick="copyIban()">Copia IBAN</button>
+  </div>
+  <div id="copy-dialog">Grazie di cuore! IBAN copiato ❤️</div>
+  <script>
+    function copyIban() {
+      const ibanText = document.getElementById('iban-text').innerText.replace('IBAN: ', '');
+      navigator.clipboard.writeText(ibanText).then(() => {
+        const dialog = document.getElementById('copy-dialog');
+        dialog.classList.add('show');
+        setTimeout(() => {
+          dialog.classList.remove('show');
+        }, 2000);
+      }).catch(err => {
+        alert('Errore nella copia dell\'IBAN');
+      });
+    }
+    // Attiva le animazioni all'avvio
+    window.onload = () => {
+      document.querySelector('.nomi').style.opacity = 1;
+      document.querySelector('.frase').style.opacity = 1;
+      document.querySelector('.iban-box').style.opacity = 1;
+    }
+  </script>
+</body>
+</html>
